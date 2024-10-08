@@ -1,0 +1,7 @@
+{
+	"PlayerMoveUp": "w",
+	"PlayerMoveDown": "a",
+	"PlayerMoveLeft": "s",
+	"PlayerMoveRight": "d",
+	"UIMenu": "esc"
+}
