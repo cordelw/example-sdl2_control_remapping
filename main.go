@@ -7,7 +7,7 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
-// SDL STUFF
+// SDL UTIL FUNCTIONS
 //
 
 func startSDL() (*sdl.Window, *sdl.Renderer) {
@@ -41,6 +41,7 @@ type Player struct {
 	PosY float32
 }
 
+// In game actions
 const (
 	ActionPlayerMoveUp = iota
 	ActionPlayerMoveDown
@@ -50,8 +51,9 @@ const (
 	ActionLast
 )
 
-type Keymap [ActionLast]sdl.Scancode
+type Keymap [ActionLast]sdl.Scancode // Map of actions to sdl scancodes
 
+// Map to convert json config file values to scancodes
 var KeyConversion map[string]sdl.Scancode = map[string]sdl.Scancode{
 	"esc":       sdl.SCANCODE_ESCAPE,
 	"tab":       sdl.SCANCODE_TAB,
@@ -117,6 +119,7 @@ var KeyConversion map[string]sdl.Scancode = map[string]sdl.Scancode{
 	"/":         sdl.SCANCODE_SLASH,
 }
 
+// Function for loading controls from config.json
 func loadControls() Keymap {
 	var keymap Keymap
 	configFile, _ := os.ReadFile("config.json")
@@ -145,7 +148,7 @@ func main() {
 
 	// Main loop
 	for active := true; active; {
-		// active = handleInputA(&player)
+		//active = handleInputA(&player)
 		active = handleInputB(keymap, &player)
 
 		// Clear screen
@@ -168,7 +171,7 @@ func main() {
 	}
 }
 
-// Non configurable
+// Default input handling function
 func handleInputA(player *Player) bool {
 	for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 		switch e := event.(type) {
@@ -194,7 +197,7 @@ func handleInputA(player *Player) bool {
 	return true
 }
 
-// Configurable
+// Keymap based input handling function
 func handleInputB(keymap Keymap, player *Player) bool {
 	for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 		switch e := event.(type) {
